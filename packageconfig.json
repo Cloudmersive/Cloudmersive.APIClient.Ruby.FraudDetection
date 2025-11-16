@@ -1,0 +1,11 @@
+﻿{
+
+    "gemName": "cloudmersive-cdr-api-client",
+    "gemLicense": "Apache 2.0",
+    "gemVersion": "2.0.0",
+    "gemHomepage": "https://cloudmersive.com/cdr-api",
+    "gemSummary": "Sanitize business documents.",
+    "gemDescription": "CDR API lets you strip security threats from business documents.",
+    "gemAuthor": "Cloudmersive"
+
+}
