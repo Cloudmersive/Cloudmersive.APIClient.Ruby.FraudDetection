@@ -1,1 +1,1 @@
-& gem push .\client\cloudmersive-cdr-api-client-2.0.0.gem
+& gem push .\client\cloudmersive-frauddetection-api-client-2.0.0.gem
