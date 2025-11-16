@@ -1,0 +1,190 @@
+﻿{
+  "swagger": "2.0",
+  "info": {
+    "title": "fraudapi",
+    "description": "Easily and directly scan and block fraudulent security threats in input.",
+    "version": "v1"
+  },
+  "paths": {
+    "/fraud-ai/detection/document": {
+      "post": {
+        "tags": [
+          "FraudDetection"
+        ],
+        "summary": "AI Fraud Detection for Documents",
+        "description": "Perform fraud detection and classification on input document and user context.  Input document formats supported include DOCX, PDF, PNG and JPG.",
+        "operationId": "DocumentDetectFraud",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "InputFile",
+            "description": "Input document, or photos of a document, to perform fraud detection on",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FraudDetectionResult"
+            }
+          }
+        }
+      }
+    },
+    "/fraud-ai/detection/document/advanced": {
+      "post": {
+        "tags": [
+          "FraudDetection"
+        ],
+        "summary": "Advanced AI Fraud Detection for Documents",
+        "description": "Perform advanced fraud detection and classification on input document and user context.  Input document formats supported include DOCX, PDF, PNG and JPG.",
+        "operationId": "DocumentDetectFraudAdvanced",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "UserEmailAddress",
+            "description": "User email address for context (optional)",
+            "type": "string"
+          },
+          {
+            "in": "header",
+            "name": "UserEmailAddressVerified",
+            "description": "True if the user's email address was verified (optional)",
+            "type": "boolean"
+          },
+          {
+            "in": "formData",
+            "name": "InputFile",
+            "description": "Input document, or photos of a document, to perform fraud detection on",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AdvancedFraudDetectionResult"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AdvancedFraudDetectionResult": {
+      "description": "Result of performing an advanced document fraud analysis",
+      "type": "object",
+      "properties": {
+        "Successful": {
+          "description": "True if successful, false otherwise",
+          "type": "boolean"
+        },
+        "CleanResult": {
+          "description": "True if the document is clean, false if fraud threats were found",
+          "type": "boolean"
+        },
+        "FraudRiskLevel": {
+          "format": "double",
+          "description": "Overall fraud risk level between 0.0 and 1.0",
+          "type": "number"
+        },
+        "ContainsFinancialLiability": {
+          "description": "True if the document contains financial liability",
+          "type": "boolean"
+        },
+        "ContainsSensitiveInformationCollection": {
+          "description": "True if the document contains sensitive data collection from the recipient",
+          "type": "boolean"
+        },
+        "ContainsAssetTransfer": {
+          "description": "True if the document contains an asset transfer",
+          "type": "boolean"
+        },
+        "ContainsPurchaseAgreement": {
+          "description": "True if the document contains a purchase agreement",
+          "type": "boolean"
+        },
+        "ContainsEmploymentAgreement": {
+          "description": "True if the document contains an employment agreement",
+          "type": "boolean"
+        },
+        "AnalysisRationale": {
+          "description": "Rationale on why the document was classified as such",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "FraudDetectionResult": {
+      "description": "Result of performing fraud detection on a document",
+      "type": "object",
+      "properties": {
+        "Successful": {
+          "description": "True if successful, false otherwise",
+          "type": "boolean"
+        },
+        "CleanResult": {
+          "description": "True if the document is clean, false if fraud threats were found",
+          "type": "boolean"
+        },
+        "FraudRiskLevel": {
+          "format": "double",
+          "description": "Overall fraud risk level between 0.0 and 1.0",
+          "type": "number"
+        },
+        "ContainsFinancialLiability": {
+          "description": "True if the document contains financial liability",
+          "type": "boolean"
+        },
+        "ContainsSensitiveInformationCollection": {
+          "description": "True if the document contains sensitive data collection from the recipient",
+          "type": "boolean"
+        },
+        "ContainsAssetTransfer": {
+          "description": "True if the document contains an asset transfer",
+          "type": "boolean"
+        },
+        "ContainsPurchaseAgreement": {
+          "description": "True if the document contains a purchase agreement",
+          "type": "boolean"
+        },
+        "ContainsEmploymentAgreement": {
+          "description": "True if the document contains an employment agreement",
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "securityDefinitions": {
+    "Apikey": {
+      "type": "apiKey",
+      "name": "Apikey",
+      "in": "header",
+      "description": "Apikey"
+    }
+  },
+  "security": [
+    {
+      "Apikey": [ ]
+    }
+  ]
+}
+
